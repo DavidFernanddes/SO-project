@@ -1,26 +1,31 @@
 #include <stdio.h>
-#include "estruturas.h"
+#include "structures.h"
 
-// valores que nao modificam, se quiserem depois ponham verificações ($_$)
-#define NUM_PISTAS 5
-#define NUM_COMBOIOS 10
-#define LINHAS_MATRIZ 10
-#define COLUNAS_MATRIZ 10
+void lerDados(char *fileTxt);
 
-int main()
-{
-    // definir arrays estaticos
-    Pista ArrayPistas[NUM_PISTAS];
-    Comboio ArrayComboios[NUM_COMBOIOS];
-    int matriz[LINHAS_MATRIZ][COLUNAS_MATRIZ];
+int main(int argc, char* argv[]) {
+    if (argc != 3) {
+        printf("Uso: %s <ficheiro_de_entrada> <tempo_de_espera_ms>\n", argv[0]);
+        return 1;
+    }
+
+    Track ArrayTracks[MAX_TRACKS];
+    Train ArrayTrains[MAX_TRAINS];
+    //int matrix[LINES_MATRIX][COLUMN_MATRIX];
+    printf("It works");
+    return 0;
 }
 
-void lerDados(char *trabalhoSO, Pista *pistas, Comboio *arraycomboios)
+void lerDados(char *fileTxt /*, Track *tracks, Train *matrixTrains*/)
 {
-    FILE *file = fopen(trabalhoSO, "r");
+    FILE *file = fopen(fileTxt, "r");
     if (file == NULL)
     {
         perror("Erro ao abrir o ficheiro");
         return;
     }
+    char myString[100];
+    fgets(myString, 100, file);
+    printf("%s", myString);
+    fclose(file);
 }

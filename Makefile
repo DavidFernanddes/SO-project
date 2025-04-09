@@ -1,11 +1,8 @@
 default:
-	gcc -o proj main.c -pthread
-
-debug:
-	gcc -g -o proj main.c -pthread
+	gcc -o proj main.c structures.c -pthread
 
 run:
-	./proj
+	./proj prob1_short.txt 3000
 
 clean:
 	rm -f proj
@@ -13,4 +10,3 @@ clean:
 go:
 	make default
 	make run
-	ls
