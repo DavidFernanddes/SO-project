@@ -1,5 +1,5 @@
-#ifndef ESTRUTURAS_H
-#define ESTRUTURAS_H
+#ifndef STRUCTURES_H
+#define STRUCTURES_H
 
 #define MAX_TRACKS 5
 #define MAX_TRAINS 10
@@ -16,7 +16,7 @@ typedef struct {
 typedef struct {
     int num;
     int size;
-    Position positionTack[MAX_POSITIONS];
+    Position position[MAX_POSITIONS];
 } Track;
 
 typedef struct {

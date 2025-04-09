@@ -1,5 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include "structures.h"
+#include "input.h"
 
 void lerDados(char *fileTxt);
 
@@ -9,23 +12,29 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    Track ArrayTracks[MAX_TRACKS];
-    Train ArrayTrains[MAX_TRAINS];
-    //int matrix[LINES_MATRIX][COLUMN_MATRIX];
-    printf("It works");
-    return 0;
-}
+    char* file_name = argv[1];
+    int wait_time = atoi(argv[2]) * 1000;
 
-void lerDados(char *fileTxt /*, Track *tracks, Train *matrixTrains*/)
-{
-    FILE *file = fopen(fileTxt, "r");
-    if (file == NULL)
-    {
-        perror("Erro ao abrir o ficheiro");
-        return;
+    Track tracks[MAX_TRACKS];
+    Train trains[MAX_TRAINS];
+    char board[BOARD_SIZE][BOARD_SIZE];
+
+    int num_trains = read_file(file_name, tracks, trains);
+    if (num_trains == 0) {
+        return 1; 
     }
-    char myString[100];
-    fgets(myString, 100, file);
-    printf("%s", myString);
-    fclose(file);
+
+    while(1) {
+        for (int i = 0; i < num_trains; i++) {
+            update_train_position(&trains[i], tracks);
+        }   
+
+        fill_board(board, tracks, MAX_TRACKS, trains, num_trains);
+
+        print_state(board, trains, num_trains, tracks);
+
+        usleep(wait_time);
+    }
+
+    return 0;
 }

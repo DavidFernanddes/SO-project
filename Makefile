@@ -1,5 +1,5 @@
 default:
-	gcc -o proj main.c structures.c -pthread
+	gcc -o proj main.c input.c -pthread
 
 run:
 	./proj prob1_short.txt 3000
