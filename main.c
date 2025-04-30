@@ -3,10 +3,12 @@
 #include <unistd.h>
 #include <sys/mman.h>
 #include <sys/wait.h>
+#ifdef __linux__
+    #include <sys/prctl.h>
+#endif
+#include <signal.h>
 #include "structures.h"
 #include "input.h"
-
-void lerDados(char *fileTxt);
 
 int main(int argc, char* argv[]) {
     if (argc != 3) {
@@ -32,7 +34,6 @@ int main(int argc, char* argv[]) {
         return 1; 
     }
 
-    // Fork a process for each train
     for (int i = 0; i < num_trains; i++) {
         pid_t pid = fork();
         if (pid < 0) {
@@ -42,11 +43,16 @@ int main(int argc, char* argv[]) {
 
         if (pid == 0) {
             printf("Processo filho para o comboio %d (PID: %d)\n", trains[i].num, getpid());
+            #ifdef __linux__
+                        if (prctl(PR_SET_PDEATHSIG, SIGKILL) == -1) {
+                            exit(1);
+                        }
+            #endif
             while (1) {
                 update_train_position(&trains[i], tracks);
                 usleep(wait_time);
             }
-            exit(0); // Ensure child process exits after its loop
+            exit(0);
         }
     }
 

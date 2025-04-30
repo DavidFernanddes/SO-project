@@ -4,32 +4,33 @@
 
 // Função para ler os dados do ficheiro e preencher as estruturas de pistas e comboios
 int read_file(char *file_name, Track tracks[], Train trains[]) {
-    // Abre o ficheiro para leitura
+    // Open the file for reading
     FILE *file = fopen(file_name, "r");
     if (file == NULL) {
-        printf("Erro ao abrir o ficheiro");
-        return 1;
+        printf("Erro ao abrir o ficheiro\n");
+        return 0;
     }
 
     int num_tracks, num_trains;
     fscanf(file, "%d %d", &num_tracks, &num_trains);
 
-    // Lê os dados de cada pista
+    // Read track data
     for (int t = 0; t < num_tracks; t++) {
         fscanf(file, "%d %d", &tracks[t].num, &tracks[t].size);
-        // Lê as posições de cada pista
+
+        // Read positions for the track
         for (int p = 0; p < tracks[t].size; p++) {
             fscanf(file, "%d %d", &tracks[t].position[p].x, &tracks[t].position[p].y);
         }
     }
 
-    // Lê os dados de cada comboio
+    // Read train data
     for (int c = 0; c < num_trains; c++) {
         fscanf(file, "%d %d %d %d", &trains[c].num, &trains[c].track, 
                &trains[c].position, &trains[c].speed);
-        trains[c].counter = 0;
+        trains[c].counter = 0; // Initialize the train's counter
     }
-    
+
     fclose(file);
     return num_trains;
 }
