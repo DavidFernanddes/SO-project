@@ -21,28 +21,28 @@ typedef struct {
 } Position;
 
 typedef struct {
-    int stop_index;        // Index of the position in the track where the stop is located
-    int semaphore_index;   // Index of the semaphore used for synchronization
+    int stop_index;
+    int semaphore_index;
 } Stop;
 
 typedef struct {
-    int num;                     // Track number
-    int size;                    // Number of positions in the track
-    Position position[MAX_POSITIONS]; // Array of positions
-    int num_stops;               // Number of stops in the track
-    Stop stops[MAX_STOPS];       // Array of stops
+    int num;
+    int size;
+    Position position[MAX_POSITIONS];
+    int num_stops;
+    Stop stops[MAX_STOPS];
 } Track;
 
 typedef struct {
-    int num;         // Train number
-    int track;       // Track index where the train is located
-    int position;    // Current position index in the track
-    int speed;       // Train speed (move every 'speed' cycles)
-    int counter;     // Counter for train movement
-    char state;      // Train state: 'M' (moving), 'S' (at stop), 'W' (waiting)
-    int section;     // Current section (corresponds to the last stop passed)
-    int last_stop;   // Index of the last stop passed
-    int next_stop;   // Index of the next stop
+    int num;
+    int track;
+    int position;
+    int speed;
+    int counter;
+    char state;
+    int section;
+    int last_stop;
+    int next_stop;
 } Train;
 
 #endif
