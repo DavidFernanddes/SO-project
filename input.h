@@ -13,4 +13,14 @@ void find_train_stops(Train *train, Track *track);
 
 void train_process(Train *train, Track tracks[], sem_t *semaphores[], sem_t *mutex, int wait_time);
 
+void cleanup(Resources *resources);
+
+void init_semaphores(Resources *resources);
+
+void init_shared_memory(Resources *resources);
+
+void spawn_train_processes(Resources *resources, int num_trains, int wait_time, int file_type);
+
+void run_simulation(Resources *resources, int wait_time);
+
 #endif

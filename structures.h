@@ -14,6 +14,8 @@
 #define MAX_POSITIONS 50
 #define BOARD_SIZE 10
 #define MAX_STOPS 10
+#define MAX_SEMAPHORES 10
+#define SEM_NAME_SIZE 64
 
 typedef struct {
     int x;
@@ -44,5 +46,16 @@ typedef struct {
     int last_stop;
     int next_stop;
 } Train;
+
+typedef struct {
+    Track* tracks;
+    Train* trains;
+    char (*board)[BOARD_SIZE];
+    sem_t *semaphores[MAX_SEMAPHORES];
+    sem_t *mutex;
+    int num_processes;
+    pid_t *pids;
+    char sem_names[MAX_SEMAPHORES+1][SEM_NAME_SIZE];
+} Resources;
 
 #endif
